@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi niña</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffebf0;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+        main {
+            margin: 20px 0;
+        }
+        .card {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: white;
+            padding: 25px;
+            margin: 20px auto;
+            border: 2px solid white;
+            border-radius: 15px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .ribbon {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background-color: #ff3d73;
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            transform: rotate(20deg);
+        }
+        .heart {
+            font-size: 60px;
+            color: #ff2e63;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .message {
+            background-color: #ffdae5;
+            border: 2px solid #ff3d73;
+            padding: 25px;
+            margin-top: 20px;
+            border-radius: 15px;
+            display: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .button {
+            background-color: #ff3d73;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            margin: 10px;
+            display: inline-block;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            cursor: pointer;
+            background-color: #ff1e56;
+            transform: scale(1.1);
+        }
+        .heart-fall {
+            position: absolute;
+            color: #ff2e63;
+            font-size: 35px;
+            top: 0;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="card">
+            <div class="ribbon">Con amor</div>
+            <div class="heart">&#10084;</div>
+            <p>Click para Abrir</p>
+            <a href="#" id="openLetter" class="button">Abrir Carta</a>
+        </div>
+        <div class="message" id="loveMessage">
+            <h2>¿Quieres ser mi Valentín?</h2>
+            <p>En este día, quiero expresarte lo mucho que significas para mí. Rebeca, eres la luz que ilumina mis días y llenas mi corazón de alegría y amor. Tu presencia en mi vida es un regalo invaluable, y estoy eternamente agradecido por cada momento que compartimos. Te amo con todo mi ser.</p>
+            <a href="#" class="button" id="yesButton">Sí, quiero</a>
+            <a href="#" class="button" id="noButton">No, gracias</a>
+            <p style="margin-top: 20px; font-weight: bold; color: #ff3d73;"> Att:Tu guitarrista 🎸</p>
+        </div>
+    </main>
+    <script>
+        const openLetter = document.getElementById('openLetter');
+        const loveMessage = document.getElementById('loveMessage');
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+
+        openLetter.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.querySelector('.card').style.display = 'none';
+            loveMessage.style.display = 'block';
+        });
+
+        noButton.addEventListener('mouseover', function() {
+            moveButton();
+        });
+
+        noButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            moveButton();
+        });
+
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            noButton.style.position = 'absolute';
+            noButton.style.left = x + 'px';
+            noButton.style.top = y + 'px';
+        }
+
+        yesButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            createHeartRain();
+        });
+
+        function createHeartRain() {
+            for (let i = 0; i < 40; i++) {
+                let heart = document.createElement('div');
+                heart.innerHTML = '&#10084;';
+                heart.classList.add('heart-fall');
+                document.body.appendChild(heart);
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                setTimeout(() => { heart.remove(); }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
